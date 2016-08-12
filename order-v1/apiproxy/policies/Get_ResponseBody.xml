@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Javascript async="false" continueOnError="false" enabled="true" timeLimit="200" name="Get_ResponseBody">
+    <DisplayName>Get_ResponseBody</DisplayName>
+    <Properties/>
+    <ResourceURL>jsc://Get_ResponseBody.js</ResourceURL>
+</Javascript>

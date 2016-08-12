@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="15" name="order-v2">
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <CreatedAt>1470962055219</CreatedAt>
+    <CreatedBy>sbhuyan@miraclesoft.com</CreatedBy>
+    <Description></Description>
+    <DisplayName>order-v1</DisplayName>
+    <LastModifiedAt>1470965187817</LastModifiedAt>
+    <LastModifiedBy>sbhuyan@miraclesoft.com</LastModifiedBy>
+    <Policies>
+        <Policy>AssignMessage_Request</Policy>
+        <Policy>Assign_Message_Delete</Policy>
+        <Policy>Assign_Message_Request</Policy>
+        <Policy>Assign_Message_Response</Policy>
+        <Policy>Assign_Message_Success</Policy>
+        <Policy>Create_Cache_OrderStatus</Policy>
+        <Policy>Extract_Variables_OrderId</Policy>
+        <Policy>Extract_Variables_subscriptionId</Policy>
+        <Policy>Flush_Cache_OrderStatus</Policy>
+        <Policy>Get_Cache_OrdersStatus</Policy>
+        <Policy>Get_ResponseBody</Policy>
+        <Policy>InitRequest</Policy>
+        <Policy>Raise_Fault_DataNotFound</Policy>
+        <Policy>Raise_Fault_OrderId</Policy>
+        <Policy>Raise_Fault_SubscriptionId</Policy>
+        <Policy>Service_Callout_PTService</Policy>
+        <Policy>SetResponseBody</Policy>
+        <Policy>Set_Pizatracker_Response_data</Policy>
+        <Policy>SubscriptionId_Validation</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>jsc://Get_ResponseBody.js</Resource>
+        <Resource>jsc://InitRequest.js</Resource>
+        <Resource>jsc://OrderId_Validation.js</Resource>
+        <Resource>jsc://SetResponseBody.js</Resource>
+        <Resource>jsc://Set_Pizatracker_Response_data.js</Resource>
+        <Resource>jsc://SubscriptionId_Validation.js</Resource>
+    </Resources>
+    <TargetServers/>
+    <TargetEndpoints/>
+    <validate>false</validate>
+</APIProxy>

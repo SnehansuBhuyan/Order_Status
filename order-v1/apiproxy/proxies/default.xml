@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <Description/>
+    <FaultRules/>
+    <PreFlow name="PreFlow">
+        <Request/>
+        <Response/>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <Flows>
+        <Flow name="Insert_Orders_Status_Cache">
+            <Description>Pizza Tracker service to Apigee request to insert or update orders status</Description>
+            <Request>
+                <Step>
+                    <Name>Extract_Variables_OrderId</Name>
+                </Step>
+                <Step>
+                    <Name>InitRequest</Name>
+                </Step>
+                <Step>
+                    <Condition>errorflag equals "true"</Condition>
+                    <FaultRules/>
+                    <Name>Raise_Fault_OrderId</Name>
+                </Step>
+                <Step>
+                    <Name>Create_Cache_OrderStatus</Name>
+                </Step>
+                <Step>
+                    <Name>SetResponseBody</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>Assign_Message_Success</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/orders/**") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get_Orders_Status_Cache">
+            <Description>Pizza Tracker service to Apigee request to get orders status</Description>
+            <Request>
+                <Step>
+                    <Name>Extract_Variables_subscriptionId</Name>
+                </Step>
+                <Step>
+                    <Name>SubscriptionId_Validation</Name>
+                </Step>
+                <Step>
+                    <Condition>errorflag equals "true"</Condition>
+                    <FaultRules/>
+                    <Name>Raise_Fault_SubscriptionId</Name>
+                </Step>
+                <Step>
+                    <Name>Get_Cache_OrdersStatus</Name>
+                </Step>
+                <Step>
+                    <Name>Get_ResponseBody</Name>
+                </Step>
+                <Step>
+                    <Condition>data1 == null </Condition>
+                    <Name>Service_Callout_PTService</Name>
+                </Step>
+                <Step>
+                    <Condition>data1 == null</Condition>
+                    <Name>Set_Pizatracker_Response_data</Name>
+                </Step>
+                <Step>
+                    <Condition>errorflag equals "true"</Condition>
+                    <FaultRules/>
+                    <Name>Raise_Fault_DataNotFound</Name>
+                </Step>
+                <Step>
+                    <Condition>data1 == null</Condition>
+                    <Name>Create_Cache_OrderStatus</Name>
+                </Step>
+                <Step>
+                    <Name>Assign_Message_Request</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>Assign_Message_Response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/subscriptions/**") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="Delete_Orders_Status_Cache">
+            <Description>Pizza Tracker service to Apigee request to flush orders status</Description>
+            <Request>
+                <Step>
+                    <Name>Extract_Variables_subscriptionId</Name>
+                </Step>
+                <Step>
+                    <Name>SubscriptionId_Validation</Name>
+                </Step>
+                <Step>
+                    <Condition>errorflag equals "true"</Condition>
+                    <FaultRules/>
+                    <Name>Raise_Fault_SubscriptionId</Name>
+                </Step>
+                <Step>
+                    <Name>Flush_Cache_OrderStatus</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>Assign_Message_Delete</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/subscriptions/**") and (request.verb = "DELETE")</Condition>
+        </Flow>
+    </Flows>
+    <HTTPProxyConnection>
+        <BasePath>/api/v1</BasePath>
+        <Properties/>
+        <VirtualHost>default</VirtualHost>
+        <VirtualHost>secure</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="noroute"/>
+    <!-- <RouteRule name="Pizza_Tracker_endpoint">
+        <TargetEndpoint>Pizza_Tracker_endpoint</TargetEndpoint>
+    </RouteRule>-->
+</ProxyEndpoint>

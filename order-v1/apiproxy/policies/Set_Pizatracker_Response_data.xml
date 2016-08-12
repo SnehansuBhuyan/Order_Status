@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Javascript async="false" continueOnError="false" enabled="true" timeLimit="200" name="Set_Pizatracker_Response_data">
+    <DisplayName>Set_Pizatracker_Response_data</DisplayName>
+    <Properties/>
+    <ResourceURL>jsc://Set_Pizatracker_Response_data.js</ResourceURL>
+</Javascript>
